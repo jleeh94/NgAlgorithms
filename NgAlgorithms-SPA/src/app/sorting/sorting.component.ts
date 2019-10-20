@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { quickSort } from '../algorithms/quicksort';
+import { bubbleSort } from '../algorithms/bubblesort';
 
 @Component({
   selector: 'app-sorting',
@@ -42,6 +43,9 @@ export class SortingComponent implements OnInit {
 
       case 'quick':
         await quickSort(this._randomNums, 0, this._randomNums.length - 1, this._playSpeed);
+        break;
+      case 'bubble':
+        await bubbleSort(this._randomNums, this._playSpeed);
         break;
 
       default:
