@@ -12,15 +12,17 @@ export class SortingComponent implements OnInit {
   _randomNums: Array<number>;
   _selectedAlgo: string;
   _enableGo: boolean;
+  _playSpeed: number;
 
   constructor() { }
 
   ngOnInit() {
     this.GenerateNumbers();
+    this._playSpeed = 200;
   }
 
   GenerateNumbers() {
-    this._randomNums = Array.from({length: 15}, () => Math.floor(Math.random() * 500) + 50);
+    this._randomNums = Array.from({length: 80}, () => Math.floor(Math.random() * 500) + 50);
   }
 
   EnableGo(event: any) {
@@ -28,15 +30,18 @@ export class SortingComponent implements OnInit {
     this._selectedAlgo = event.target.value;
   }
 
+  SetSpeed(event: any) {
+    this._playSpeed = event.target.value;
+  }
+
   async Sort() {
-    if (this._enableGo === false) {
-      return false;
-    }
 
     this._enableGo = false;
+
     switch (this._selectedAlgo) {
+
       case 'quick':
-        await quickSort(this._randomNums);
+        await quickSort(this._randomNums, 0, this._randomNums.length - 1, this._playSpeed);
         break;
 
       default:
