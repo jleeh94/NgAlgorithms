@@ -8,3 +8,8 @@
     width:100px;
     margin-right:10px;
 }
+.chartContainer {
+    height: 560px;
+    border-left: solid rgb(184, 182, 182);
+    border-bottom: solid rgb(184, 182, 182);
+}

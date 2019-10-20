@@ -1,9 +1,9 @@
 <div class="container pt-5" style="min-width:1150px">
   <div class="row">
-    <div class="col-sm-7">
+    <div class="col-sm-8 chartContainer">
       <div class="bar" [style.height.px]="num" *ngFor="let num of _randomNums"></div>
     </div>
-    <div class="col-sm-5">
+    <div class="col-sm-4">
 
       <div class="row">
         <select class="form-control" name="" id="" (change)="EnableGo($event)">
@@ -14,6 +14,7 @@
         
         <select class="form-control mt-3" name="" id="" (change)="SetSpeed($event)">
           <option value="" disabled selected>Select a Speed</option>
+          <option value="0">Full</option>
           <option value="20">Fast</option>
           <option value="150">Medium</option>
           <option value="500">Slow</option>

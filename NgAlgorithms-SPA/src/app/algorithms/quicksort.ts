@@ -40,7 +40,10 @@ async function partition(numbers: Array<number>, low: number, high: number, spee
             [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
             i++;
             j--;
-            await delay(speed);
+            if (speed > 0) {
+                await delay(speed);
+            }
+
         }
     }
 
