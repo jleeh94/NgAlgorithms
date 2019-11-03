@@ -9,18 +9,20 @@ import { HomeComponent } from './home/home.component';
 
 import { appRoutes } from './routes';
 import { RouterModule } from '@angular/router';
+import { PathfindingComponent } from './pathfinding/pathfinding.component';
 
 @NgModule({
    declarations: [
       AppComponent,
       NavComponent,
       SortingComponent,
-      HomeComponent
+      HomeComponent,
+      PathfindingComponent
    ],
    imports: [
       BrowserModule,
       AppRoutingModule,
-      RouterModule.forRoot(appRoutes),
+      RouterModule.forRoot(appRoutes)
    ],
    providers: [],
    bootstrap: [

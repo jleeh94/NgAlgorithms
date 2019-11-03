@@ -1,0 +1,19 @@
+<div class="container">
+  
+  <div class="actionBar">
+    <button class="btn btn-success" (click)="enableStartSet()">Set Start</button>
+    <button class="btn btn-primary" (click)="enableEndSet()">Set End</button>
+  </div>
+
+  <div class="grid-container">
+      <div style="height: 30px" *ngFor="let row of grid; let i = index">
+        <div [className]="col?.start ? 'block startNode' : col?.end ? 'block endNode' : 'block'" 
+              *ngFor="let col of row; let j = index" attr.id = "{{i}}_{{j}}" [attr.data-x]=i [attr.data-y]=j 
+              (click)="allowSetEnd ? setEnd($event) : allowSetStart ? setStart($event) : null">
+          
+        </div>
+      </div>
+      
+  </div>      
+    
+</div>

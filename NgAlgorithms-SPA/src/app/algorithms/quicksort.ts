@@ -1,28 +1,28 @@
 import { delay } from '../helpers/delay';
 
-export async function quickSort(numbers: Array<number>, low: number, high: number, speed: number) {
+export async function quickSort(numbers: Array<number>, left: number, right: number, speed: number) {
 
     let leftWall;
 
-    leftWall = await partition(numbers, low, high, speed); // Move smaller numbers before the pivot, greater numbers after
+    leftWall = await partition(numbers, left, right, speed); // Move smaller numbers before the pivot, greater numbers after
 
-    if (low < leftWall - 1) {
-        await quickSort(numbers, low, leftWall - 1, speed); // Sort the left (smaller) numbers
+    if (left < leftWall - 1) {
+        await quickSort(numbers, left, leftWall - 1, speed); // Sort the left (smaller) numbers
     }
 
-    if (leftWall < high) {
-        await quickSort(numbers, leftWall, high, speed); // Sort the right (higher) numbers
+    if (leftWall < right) {
+        await quickSort(numbers, leftWall, right, speed); // Sort the right (higher) numbers
     }
 
 }
 
-async function partition(numbers: Array<number>, low: number, high: number, speed: number) {
+async function partition(numbers: Array<number>, left: number, right: number, speed: number) {
 
     // Start with a pivot of the middle index
-    const pivot = numbers[Math.floor((low + high) / 2)];
+    const pivot = numbers[Math.floor((left + right) / 2)];
 
-    let i = low;
-    let j = high;
+    let i = left;
+    let j = right;
 
 
     while (i <= j) {

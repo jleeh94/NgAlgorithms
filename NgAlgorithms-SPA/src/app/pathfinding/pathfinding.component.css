@@ -1,0 +1,29 @@
+.grid-container {
+    height: 600px;
+    width: 1250px;
+    margin: auto;
+    margin-top: 50px;
+    cursor:pointer;
+}
+.container {
+    margin-top: 30px;
+}
+
+.actionBar {
+    width: 100%;    
+}
+
+.block {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #bcbcbd;
+    box-sizing: border-box;
+    display: inline-block;
+}
+
+.startNode {
+    background-color: rgb(66, 150, 66);
+}
+.endNode {
+    background-color: rgb(60, 60, 255);
+}

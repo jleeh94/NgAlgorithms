@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { quickSort } from '../algorithms/quicksort';
 import { bubbleSort } from '../algorithms/bubblesort';
+import { mergeSort } from '../algorithms/mergesort';
 
 @Component({
   selector: 'app-sorting',
@@ -39,6 +40,8 @@ export class SortingComponent implements OnInit {
 
     this._enableGo = false;
 
+    console.log('Check against: ' + this._randomNums.sort((a, b) => a - b).toString());
+
     switch (this._selectedAlgo) {
 
       case 'quick':
@@ -47,10 +50,17 @@ export class SortingComponent implements OnInit {
       case 'bubble':
         await bubbleSort(this._randomNums, this._playSpeed);
         break;
+      case 'merge':
+        await mergeSort(this._randomNums, 0, this._randomNums.length - 1, this._playSpeed);
+        break;
 
       default:
         break;
     }
+
+    console.log('Sorted: ' + this._randomNums.toString());
+
+    console.log('Match: ' + (this._randomNums === this._randomNums.sort((a, b) => a - b)));
 
     this._enableGo = true;
   }
