@@ -12,6 +12,19 @@
 .actionBar {
     width: 100%;    
 }
+.setButton {
+    float:left;
+    margin-left:10px;
+}
+
+
+.selectControl {
+    float:right;
+    margin-right:10px;
+}
+.actionBtn {
+    width: 100px;
+}
 
 .block {
     width: 30px;

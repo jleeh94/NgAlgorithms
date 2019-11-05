@@ -1,8 +1,39 @@
 <div class="container">
   
   <div class="actionBar">
-    <button class="btn btn-success" (click)="enableStartSet()">Set Start</button>
-    <button class="btn btn-primary" (click)="enableEndSet()">Set End</button>
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="setButton"><button class="btn btn-success" (click)="enableStartSet()">Set Start</button></div>
+        <div class="setButton"><button class="btn btn-primary" (click)="enableEndSet()">Set End</button></div>        
+      </div>
+      <div class="col-sm-6">
+        <div class="row">
+          <div class="selectControl">
+              <select class="form-control" name="" id="" (change)="EnableGo($event)">
+                  <option value="" disabled selected>Select a Pathing Algorithm</option>
+                  <option value="dijkstra">Dijkstra</option>
+                  <option value="astar">A*</option>
+                </select>
+          </div>
+          <div class="selectControl">
+              <select class="form-control" name="" id="" (change)="SetSpeed($event)">
+                  <option value="" disabled selected>Select a Speed</option>
+                  <option value="0">Full</option>
+                  <option value="20">Fast</option>
+                  <option value="150">Medium</option>
+                  <option value="500">Slow</option>
+                </select>
+          </div>
+      
+          <div>
+            <div class="text-center">
+                <button class="btn btn-success actionBtn" [disabled]="!enableGo" (click)="Pathfind()">Go</button>
+            </div>      
+          </div>
+        </div>
+      </div>
+    </div>
+    
   </div>
 
   <div class="grid-container">

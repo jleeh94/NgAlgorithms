@@ -11,58 +11,57 @@ import { mergeSort } from '../algorithms/mergesort';
 export class SortingComponent implements OnInit {
 
 
-  _randomNums: Array<number>;
-  _selectedAlgo: string;
-  _enableGo: boolean;
-  _playSpeed: number;
+  randomNums: Array<number>;
+  selectedAlgo: string;
+  enableGo: boolean;
+  playSpeed: number;
 
   constructor() { }
 
   ngOnInit() {
     this.GenerateNumbers();
-    this._playSpeed = 200;
+    this.playSpeed = 200;
   }
 
   GenerateNumbers() {
-    this._randomNums = Array.from({length: 80}, () => Math.floor(Math.random() * 500) + 50);
+    this.randomNums = Array.from({length: 80}, () => Math.floor(Math.random() * 500) + 50);
   }
 
   EnableGo(event: any) {
-    this._enableGo = true;
-    this._selectedAlgo = event.target.value;
+    this.enableGo = true;
+    this.selectedAlgo = event.target.value;
   }
 
   SetSpeed(event: any) {
-    this._playSpeed = event.target.value;
+    this.playSpeed = event.target.value;
   }
 
   async Sort() {
 
-    this._enableGo = false;
+    this.enableGo = false;
 
-    console.log('Check against: ' + this._randomNums.sort((a, b) => a - b).toString());
 
-    switch (this._selectedAlgo) {
+    switch (this.selectedAlgo) {
 
       case 'quick':
-        await quickSort(this._randomNums, 0, this._randomNums.length - 1, this._playSpeed);
+        await quickSort(this.randomNums, 0, this.randomNums.length - 1, this.playSpeed);
         break;
       case 'bubble':
-        await bubbleSort(this._randomNums, this._playSpeed);
+        await bubbleSort(this.randomNums, this.playSpeed);
         break;
       case 'merge':
-        await mergeSort(this._randomNums, 0, this._randomNums.length - 1, this._playSpeed);
+        await mergeSort(this.randomNums, 0, this.randomNums.length - 1, this.playSpeed);
         break;
 
       default:
         break;
     }
 
-    console.log('Sorted: ' + this._randomNums.toString());
+    console.log('Sorted: ' + this.randomNums.toString());
 
-    console.log('Match: ' + (this._randomNums === this._randomNums.sort((a, b) => a - b)));
+    console.log('Match: ' + (this.randomNums === this.randomNums.sort((a, b) => a - b)));
 
-    this._enableGo = true;
+    this.enableGo = true;
   }
 
 }

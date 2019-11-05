@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Node } from '../helpers/node';
+import { dijkstra } from '../algorithms/dijkstra';
 
 @Component({
   selector: 'app-pathfinding',
@@ -11,20 +12,53 @@ import { Node } from '../helpers/node';
 export class PathfindingComponent implements OnInit {
 
   grid: Node[][];
-  startNode: number[];
-  endNode: number[];
+  startNode: number[]; // Keep the x-y coordinates of the start and end so we don't have to iterate the grid
+  endNode: number[];   // to find it.
 
   allowSetStart: boolean;
   allowSetEnd: boolean;
 
-  constructor() {
+  enableGo: boolean;
+  playSpeed: number;
+  selectedAlgo: string;
 
-    this.initGrid(40, 20);
-  }
+  constructor() { }
 
   ngOnInit() {
+    this.initGrid(40, 20);
     this.allowSetStart = false;
     this.allowSetEnd = false;
+
+  }
+
+  async Pathfind() {
+
+    this.enableGo = false;
+
+    switch (this.selectedAlgo) {
+
+      case 'dijkstra':
+        await dijkstra(this.grid, this.playSpeed);
+        break;
+
+      default:
+        break;
+    }
+
+    this.enableGo = true;
+  }
+
+  EnableGo(event: any) {
+
+    this.selectedAlgo = event.target.value;
+
+    if (this.startNode && this.endNode) {
+      this.enableGo = true;
+    }
+  }
+
+  SetSpeed(event: any) {
+    this.playSpeed = event.target.value;
   }
 
   initGrid(width: number, height: number) {
@@ -39,12 +73,9 @@ export class PathfindingComponent implements OnInit {
         this.grid[i][j] = new Node(i, j);
       }
     }
-    this.grid[5][5].start = true;
-    this.startNode = [5, 5];
-    this.grid[15][35].end = true;
-    this.endNode = [15, 35];
 
   }
+
   enableStartSet() {
     this.allowSetStart = true;
     this.allowSetEnd = false;
@@ -54,34 +85,50 @@ export class PathfindingComponent implements OnInit {
     this.allowSetStart = false;
     this.allowSetEnd = true;
   }
-  setStart($event) {
+  setStart($event: any) {
 
     const target = $event.target;
-    
-    //Unset current start
-    if(this.startNode.length > 0) {
-      this.grid[this.startNode[0]][this.startNode[1]].start = false;
+
+    // Unset current start
+    if (this.startNode) {
+      let currentStart = this.grid[this.startNode[0]][this.startNode[1]];
+      currentStart.start = false;
+      currentStart.distance = Number.MAX_SAFE_INTEGER;
     }
 
-    const locClicked: number[] = [target.getAttribute('data-x'), target.getAttribute('data-y')];    
+    const locClicked: number[] = [target.getAttribute('data-x'), target.getAttribute('data-y')];
     this.startNode = locClicked;
 
-    this.grid[locClicked[0]][locClicked[1]].start = true;
-  }
+    let newStart = this.grid[locClicked[0]][locClicked[1]];
+    newStart.start = true;
+    newStart.distance = 0;
 
-  setEnd($event) {
-
-    const target = $event.target;
-    
-    //Unset current end
-    if(this.endNode.length > 0) {
-      this.grid[this.endNode[0]][this.endNode[1]].end = false;
+    if (this.endNode && this.selectedAlgo) {
+      this.enableGo = true;
     }
 
-    const locClicked: number[] = [target.getAttribute('data-x'), target.getAttribute('data-y')];    
+  }
+
+  setEnd($event: any) {
+
+    const target = $event.target;
+
+    // Unset current end
+    if (this.endNode) {
+      let currentEnd = this.grid[this.endNode[0]][this.endNode[1]];
+      currentEnd.end = false;
+    }
+
+    const locClicked: number[] = [target.getAttribute('data-x'), target.getAttribute('data-y')];
     this.endNode = locClicked;
 
-    this.grid[locClicked[0]][locClicked[1]].end = true;
+    let newEnd = this.grid[locClicked[0]][locClicked[1]];
+    newEnd.end = true;
+    newEnd.distance = Number.MAX_SAFE_INTEGER;
+
+    if (this.startNode && this.selectedAlgo) {
+      this.enableGo = true;
+    }
   }
 }
 

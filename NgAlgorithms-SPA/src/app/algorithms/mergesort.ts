@@ -23,6 +23,7 @@ async function mergeHalves(numbers: Array<number>, left: number, middle: number,
     const n1 = middle - left + 1;
     const n2 = right - middle;
 
+
     // Create two temp arrays, one for left one right
     let leftTemp: number[] = [];
     let rightTemp: number[] = [];
